@@ -1,0 +1,66 @@
+{% extends 'layout_manager.html' %}
+{% block content %}
+<div class="container">
+	<div class="card-panel grey lighten-2">
+		<div class="row">
+			<div class="col s12 center-align">
+				<h5 class='blue-text text-darken-4' style="text-decoration: underline; font-weight: bold;">EDIT ITEM</h5>
+			</div>
+			<form action="{{url_for('managerUpdateItem')}}" method="post" enctype="multipart/form-data">
+				<div class="col s12 input-field">
+					<i class="fas fa-pen prefix"></i>
+					<input type="text" name="item_name" value="{{itemDetails['item_name']}}" id='item-name' class="validate" required>
+					<label for="item-name">Item Name</label>
+				</div>
+				<div class="col s12 input-field">
+					<i class="material-icons prefix">category</i>
+				    <select name="item_cat" required>
+				    	<option value="" disabled>Select Category</option>
+				    	{% if itemDetails['item_cat'] == 'lightSound'  %}
+						    <option value="lightSound" selected>Light and Sound</option>
+						    <option value="food">Food</option>
+						    <option value="others">Others</option>
+						{% elif itemDetails['item_cat'] == 'food'  %}
+							<option value="lightSound">Light and Sound</option>
+						    <option value="food" selected>Food</option>
+						    <option value="others">Others</option>
+						{% elif itemDetails['item_cat'] == 'others'  %}
+							<option value="lightSound">Light and Sound</option>
+						    <option value="food">Food</option>
+						    <option value="others" selected>Others</option>
+						{% endif %}
+				    </select>
+				</div>
+				<div class="col s12 m12 l6 input-field">
+					<i class="material-icons prefix">apps</i>
+					<input type="text" name="item_unit" value="{{itemDetails['item_unit']}}" id='item-unit' class="validate" required>
+					<label for="item-unit">Unit of Item</label>
+				</div>
+				<div class="col s12 m12 l6 input-field">
+					<i class="fas fa-rupee-sign prefix"></i>
+					<input type="number" name="item_price" value="{{itemDetails['item_price']}}" id='item-price' class="validate" required>
+					<label for="item-price">Price</label>
+				</div>
+				<div class="col s12 file-field input-field">
+					<div class="btn blue darken-4">
+						<span>ITEM PHOTO</span>
+						<input type="file" name="photo" class="validate">
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path validate" type="text">
+					</div>
+				</div>
+				<div class="col s12 input-field">
+					<i class="material-icons prefix">description</i>
+					<textarea class="materialize-textarea validate" name="item_desc" id='item-desc' required>{{itemDetails['item_desc']}}</textarea>
+					<label for="item-desc">Description</label>
+				</div>
+				<div class="col s12 center-align">
+					<input type="hidden" name="itemID" value="{{itemID}}">
+					<input type="submit" name="" value='UPDATE ITEM' class="btn blue darken-4">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

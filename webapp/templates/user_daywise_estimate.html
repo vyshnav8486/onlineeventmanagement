@@ -1,0 +1,136 @@
+{% extends 'layout_client.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		{% if estimationReport['date'] != '' %}
+			<div class="col s12 center-align">
+				<h5 class="blue-text text-darken-4" style="text-transform: capitalize; font-weight: bold; text-decoration: underline;">
+					{{estimationReport['date']}} - {{estimationReport['dayName']}} - {{eventDetails['event_name']}}
+				</h5>
+			</div>
+		{% endif %}
+		{% if estimationReport['lightSound'] != {} %}
+			<div class="col s12">
+				<h5 style="text-decoration: underline;">Light and Sound Items</h5>
+			</div>
+			<div class="col s12">
+				<div style="overflow-x: auto;">
+					<table class="highlight centered">
+						<thead>
+							<tr>
+								<th class="blue-text text-darken-4">Name</th>
+								<th class="blue-text text-darken-4">Quantity</th>
+								<th class="blue-text text-darken-4">Price</th>
+								<th class="blue-text text-darken-4">Total Cost</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i in estimationReport['lightSound'] %}
+								<tr>
+									<td style="text-transform: capitalize;">
+										{{estimationReport['lightSound'][i]['itemDetails']['item_name']}}
+									</td>
+									<td>{{estimationReport['lightSound'][i]['qty']}}</td>
+									<td>{{estimationReport['lightSound'][i]['itemDetails']['item_price']}}/-</td>
+									<td>{{estimationReport['lightSound'][i]['totalCost']}}/-</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td style="text-align: center; font-weight: bold;" class="blue-text text-darken-4">Grand Total</td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center; font-weight: bold;" class="blue-text text-darken-4">{{estimationReport['lightSoundTotal']}}/-</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+		{% if estimationReport['food'] != {} %}
+			<div class="col s12">
+				<h5 style="text-decoration: underline;">Food Items</h5>
+			</div>
+			<div class="col s12">
+				<div style="overflow-x: auto;">
+					<table class="highlight centered">
+						<thead>
+							<tr>
+								<th class="blue-text text-darken-4">Name</th>
+								<th class="blue-text text-darken-4">Quantity</th>
+								<th class="blue-text text-darken-4">Price</th>
+								<th class="blue-text text-darken-4">Total Cost</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i in estimationReport['food'] %}
+								<tr>
+									<td style="text-transform: capitalize;">
+										{{estimationReport['food'][i]['itemDetails']['item_name']}}
+									</td>
+									<td>{{estimationReport['food'][i]['qty']}}</td>
+									<td>{{estimationReport['food'][i]['itemDetails']['item_price']}}/-</td>
+									<td>{{estimationReport['food'][i]['totalCost']}}/-</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td style="text-align: center; font-weight: bold;" class="blue-text text-darken-4">Grand Total</td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center; font-weight: bold;" class="blue-text text-darken-4">{{estimationReport['foodTotal']}}/-</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+		{% if estimationReport['others'] != {} %}
+			<div class="col s12">
+				<h5 style="text-decoration: underline;">Other Items</h5>
+			</div>
+			<div class="col s12">
+				<div style="overflow-x: auto;">
+					<table class="highlight centered">
+						<thead>
+							<tr>
+								<th class="blue-text text-darken-4">Name</th>
+								<th class="blue-text text-darken-4">Quantity</th>
+								<th class="blue-text text-darken-4">Price</th>
+								<th class="blue-text text-darken-4">Total Cost</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for i in estimationReport['others'] %}
+								<tr>
+									<td style="text-transform: capitalize;">
+										{{estimationReport['others'][i]['itemDetails']['item_name']}}
+									</td>
+									<td>{{estimationReport['others'][i]['qty']}}</td>
+									<td>{{estimationReport['others'][i]['itemDetails']['item_price']}}/-</td>
+									<td>{{estimationReport['others'][i]['totalCost']}}/-</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td style="text-align: center; font-weight: bold;" class="blue-text text-darken-4">Grand Total</td>
+								<td></td>
+								<td></td>
+								<td style="text-align: center; font-weight: bold;" class="blue-text text-darken-4">{{estimationReport['othersTotal']}}/-</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		{% endif %}
+		{% if estimationReport['grandTotal'] != 0 %}
+			<div class="col s12 center-align">
+				<h5 class="red-text" style="font-weight: bold;">{{estimationReport['dayName']}} Grand Total - {{estimationReport['grandTotal']}}/-</h5>
+			</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

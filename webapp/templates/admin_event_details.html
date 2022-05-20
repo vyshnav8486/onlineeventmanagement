@@ -1,0 +1,181 @@
+{% extends 'layout_admin.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab col s4"><a class="blue-text text-darken-4" href="#event-details">event details</a></li>
+				<li class="tab col s4"><a class="blue-text text-darken-4" href="#client-details">client details</a></li>
+				<li class="tab col s4"><a class="blue-text text-darken-4" href="#event-estimate">estimate</a></li>
+			</ul>
+		</div>
+		<div class="col s12" id="event-details">
+			<div class="card-panel grey lighten-2">
+				<div class="row">
+					<div class= "col s12 center-align">
+						<img src="{{url_for('static',filename='images/evnt1.png')}}" class="circle responsive-img z-depth-1" style="height: 6rem; width: 6rem;">
+					</div>
+					<div class= "col s12 center-align">
+						<h5 class="blue-text text-darken-4" style="text-transform: capitalize; font-weight: bold;">{{eventDetails['event_name']}}</h5>
+						<span class="blue-grey-text text-lighten-1">{{eventID}}</span>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Event ID</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold;">{{eventID}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Event Name</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word; text-transform: capitalize;">{{eventDetails['event_name']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Event Date</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold;">{{eventDetails['event_date']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Event Duration</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold;">{{eventDetails['event_duration']}} Days</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Event Status</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word; text-transform: capitalize;">{{eventDetails['eventStatus']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Description</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word; text-transform: capitalize;">{{eventDetails['event_desc']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class='col s12 center' style="margin-top: 1rem;">
+						{% if flag == 'clientlist' %}
+							<a href="{{url_for('adminEventEditC', eventID=eventID)}}" class="btn blue darken-4">EDIT</a>
+						{% elif flag == 'eventlist' %}
+							<a href="{{url_for('adminEventEditE', eventID=eventID)}}" class="btn blue darken-4">EDIT</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col s12" id="client-details">
+			<div class="card-panel grey lighten-2">
+				<div class="row">
+					<div class= "col s12 center-align">
+						<img src="{{clientDetails['imgUrl']}}" class="circle responsive-img z-depth-1" style="height: 6rem; width: 6rem;">
+					</div>
+					<div class= "col s12 center-align">
+						<h5 class="blue-text text-darken-4" style="text-transform: capitalize; font-weight: bold;">{{clientDetails['name']}}</h5>
+						<span class="blue-grey-text text-lighten-1">{{clientDetails['email']}}</span>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Name</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; text-transform: capitalize;">{{clientDetails['name']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Mobile Number</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold;">{{clientDetails['mobileNumber']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Email</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word;">{{clientDetails['email']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">City</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word; text-transform: capitalize;">{{clientDetails['city']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Address</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word;">{{clientDetails['address']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class="col s12 user-sec center-align">
+						<a href="{{url_for('adminChatPage', recID=eventDetails['clientID'])}}" class="btn blue darken-4">
+							<i class="material-icons white-text left">chat</i>
+							CHAT
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col s12" id="event-estimate">
+			<div style="overflow-x:auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th class="blue-text text-darken-4">#</th>
+							<th class="blue-text text-darken-4">Total Cost</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in dayEstimate %}
+							<tr>
+								<td style="font-weight: bold;">{{dayEstimate[i]['dayName']}}</td>
+								<td style="font-weight: bold;">{{dayEstimate[i]['totalCost']}}/-</td>
+								<td><a href="{{url_for('adminDayWiseEstimate', eventID=eventID, day=i)}}" class="btn blue darken-4">DETAILS</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr>
+							<td style="font-weight: bold; text-align: center;" class="blue-text text-darken-4">Grand Total</td>
+							<td style="font-weight: bold; text-align: center;" class="blue-text text-darken-4">{{grandTotal}}/-</td>
+							<td></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

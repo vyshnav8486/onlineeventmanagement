@@ -1,0 +1,101 @@
+{% extends 'layout_user.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab col s6"><a class="pink-text text-accent-4" href="#craft-info">INFO</a></li>
+				<li class="tab col s6"><a class="pink-text text-accent-4" href="#craft-images">IMAGES</a></li>
+			</ul>
+		</div>
+		<div class="col s12" id="craft-info">
+			<div class="card-panel grey lighten-2">
+				<div class="row">
+					<div class="col s12 center-align">
+						<h5 class='pink-text text-accent-4' style="text-decoration: underline; font-weight: bold;">EDIT AD</h5>
+					</div>
+					<form action="{{url_for('updateCraftData')}}" method="post">
+						<div class="col s12 input-field">
+						<i class="fas fa-pen prefix"></i>
+						<input type="text" name="name" id='craft-name' class="validate" value="{{craftDetails['name']}}" required>
+						<label for="craft-name">Craft Name</label>
+					</div>
+					<div class="col s12 input-field">
+						<i class="material-icons prefix">category</i>
+					    <select name="catID" required>
+					    	<option value="" disabled>Select Category</option>
+					    	{% for i in categoryList %}
+					    		{% if i == craftDetails['catID'] %}
+						      		<option value="{{i}}" selected>{{categoryList[i]['name']}}</option>
+						      	{% else %}
+						      		<option value="{{i}}">{{categoryList[i]['name']}}</option>
+						      	{% endif %}
+					      	{% endfor %}
+					    </select>
+					</div>
+					<div class="col s12 m12 l6 input-field">
+						<i class="fas fa-rupee-sign prefix"></i>
+						<input type="number" name="rate" id='craft-rate' class="validate" value="{{craftDetails['rate']}}" required>
+						<label for="craft-rate">Rate (per unit)</label>
+					</div>
+					<div class="col s12 m12 l6 input-field">
+						<i class="material-icons prefix">looks_one</i>
+						<input type="number" name="stock" id='craft-stock' class="validate" value="{{craftDetails['stock']}}" required>
+						<label for="craft-stock">Stock</label>
+					</div>
+					<div class="col s12 input-field">
+						<i class="material-icons prefix">description</i>
+						<textarea class="materialize-textarea validate" name="description" id='craft-desc' required>{{craftDetails['description']}}</textarea>
+						<label for="craft-desc">Description</label>
+					</div>
+						<div class="col s12 center-align">
+							<input type="hidden" name="craftID" value="{{craftID}}">
+							<input type="submit" name="" value='UPDATE' class="btn pink accent-4">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col s12" id="craft-images">
+			<div class="row">
+				<div class="col s12 center-align" style="margin-top: 1rem;">
+					<span style="font-weight: bold; text-decoration: underline;">ADD MORE PHOTOS</span>
+				</div>
+				<form action="{{url_for('addCraftImg')}}" method="post" enctype="multipart/form-data">
+					<div class="col s12 m10 l10 file-field input-field">
+						<div class="btn pink accent-4">
+							<span>CRAFT PHOTOS</span>
+							<input type="file" name="photo" multiple class="validate" required>
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path validate" type="text">
+						</div>
+					</div>
+					<div class="col s12 m2 l2">
+						<input type="hidden" name="craftID" value="{{craftID}}">
+						<input type="submit" name="" value="UPLOAD" class="btn pink accent-4" style="margin-top: 1rem;">
+					</div>
+				</form>
+				{% for i in craftDetails['imgList'] %}
+					<div class="col s12 m6 l6" style="margin-top:.5rem">
+						<div class="row">
+							<div class="col s12">
+								<img class="responsive-img" src="{{i['imgUrl']}}" style="height: 20rem">
+							</div>
+							<div class="col s12 center-align">
+								<form action="{{url_for('deleteCraftImg')}}" method="post">
+									<input type="hidden" name="imgName" value="{{i['imgName']}}">
+									<input type="hidden" name="craftID" value="{{craftID}}">
+									<input class="btn pink accent-4" type="submit" name="" value="DELETE">
+								</form>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+				
+				
+		</div>
+	</div>
+</div>
+{% endblock %}

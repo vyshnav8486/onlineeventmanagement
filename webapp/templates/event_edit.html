@@ -1,0 +1,50 @@
+{% if session == 'client' %}
+	{% extends 'layout_client.html' %}
+{% elif session == 'admin' %}
+	{% extends 'layout_admin.html' %}
+{% elif session == 'manager' %}
+	{% extends 'layout_manager.html' %}
+{% endif %}
+{% block content %}
+<div class="container">
+	<div class="card-panel grey lighten-2">
+		<div class="row">
+			<div class="col s12 center-align">
+				<h5 class='blue-text text-darken-4' style="text-decoration: underline; font-weight: bold;">EVENT UPDATION FORM</h5>
+			</div>
+			<form action="{{url_for('eventUpdate')}}" method="post" enctype="multipart/form-data">
+				<div class="col s12 input-field">
+					<i class="fas fa-pen prefix"></i>
+					<input type="text" name="event_name" value="{{eventDetails['event_name']}}" id='event-name' class="validate" required>
+					<label for="event-name">Event Name</label>
+				</div>
+				<div class="col s12 input-field">
+					<i class="material-icons prefix">calendar_month</i>
+					<input type="text" class="datepicker" name="event_date" value="{{eventDetails['event_date']}}" id='event-date' class="validate" required>
+					<label for="event-date">Event Date</label>
+				</div>
+				<div class="col s12 input-field">
+					<i class="material-icons prefix">alarm_on</i>
+					<input type="number" name="event_duration" value="{{eventDetails['event_duration']}}" id='event-duration' class="validate" required min="1">
+					<label for="event-duration">Event Duration</label>
+				</div>
+				<div class="col s12 input-field">
+					<i class="material-icons prefix">description</i>
+					<textarea class="materialize-textarea validate" name="event_desc" id='event-desc' required>{{eventDetails['event_desc']}}</textarea>
+					<label for="event-desc">Description</label>
+				</div>
+				<div class="col s12 center-align">
+					<input type="hidden" name="session" value="{{session}}">
+					<input type="hidden" name="eventID" value="{{eventID}}">
+					{% if session == 'admin' %}
+						<input type="hidden" name="flag" value="{{flag}}">
+					{% elif session == 'manager' %}
+						<input type="hidden" name="flag" value="{{flag}}">
+					{% endif %}
+					<input type="submit" name="" value='UPDATE' class="btn blue darken-4">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

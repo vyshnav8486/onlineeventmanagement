@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"> -->
+  <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+  <title>EVENT MANAGEMENT SYSTEM</title>
+  <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0bcccc8139.js" crossorigin="anonymous"></script>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/client_home.css')}}">
+</head>
+<body>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="{{url_for('profile')}}" class="blue-text text-darken-4"><i class="material-icons">person</i>Profile</a></li>
+    <li><a href="{{url_for('clientChatPage', recID='admin')}}" class="blue-text text-darken-4"><i class="material-icons">contact_support</i>Support</a></li>
+    <li><a href="{{url_for('logout')}}" class="blue-text text-darken-4"><i class="material-icons">logout</i>Logout</a></li>
+  </ul>
+  <div class="navbar-fixed">
+    <nav>
+      <div class='nav-wrapper blue darken-4 navigation-bar'>
+        <a class='brand-logo' href="{{url_for('homePage')}}">
+          <span class="title-name-sm hide-on-med-and-up valign-wrapper">EVENT MANAGEMENT</span>
+          <span class="title-name-l hide-on-small-only">EVENT MANAGEMENT SYSTEM</span>
+        </a>
+        <a href="" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons" style="color:white;">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{{url_for('clientEventList')}}"><i class="material-icons left" style="color:white;">event</i>My Events</a></li>
+            <li><a class="dropdown-trigger" data-target="dropdown1" href="">Hi <span style="text-transform: capitalize;">{{clientDetails['name']}}</span>!<i class="material-icons right" style="color:white; font-size: 2.5rem;">account_circle</i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <ul class="sidenav" id="mobile-demo">
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <img src="{{url_for('static',filename='images/user-bg.jpg')}}">
+        </div>
+        <a href="{{url_for('profile')}}"><img class="circle" src="{{clientDetails['imgUrl']}}"></a>
+        <a href="{{url_for('profile')}}"><span class="white-text name">{{clientDetails['name']}}</span></a>
+        <a href="{{url_for('profile')}}"><span class="white-text email">{{clientDetails['email']}}</span></a>
+      </div>
+    </li>
+    <li><a href="{{url_for('homePage')}}"><i class="material-icons" style="margin-right: 1.5rem;">home</i>Home</a></li>
+    <li><a href="{{url_for('clientEventList')}}"><i class="material-icons" style="margin-right: 1.5rem;">event</i>My Events</a></li>
+    <li><a href="{{url_for('profile')}}"><i class="material-icons" style="margin-right: 1.5rem;">person</i>Profile</a></li>
+    <li><a href="{{url_for('clientChatPage', recID='admin')}}"><i class="material-icons" style="margin-right: 1.5rem;">contact_support</i>Admin Support</a></li>
+    <li><a href="{{url_for('logout')}}"><i class="material-icons" style="margin-right: 1.5rem;">logout</i>Logout</a></li>
+  </ul>
+  {% block content %}
+  {% endblock %}
+  <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+      });
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var dropdownOptions = {
+          coverTrigger : false,
+          constrainWidth: false
+        }
+        var instances = M.Dropdown.init(elems, dropdownOptions);
+      });
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.collapsible');
+        var instances = M.Collapsible.init(elems);
+      });
+    </script>
+    <script type="text/javascript">
+      var el = document.querySelector('.tabs');
+      var instance = M.Tabs.init(el);
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.img-show-1');
+        options = {height:360}
+        var instances = M.Slider.init(elems, options);
+      });
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.img-show-2');
+        options = {height:210}
+        var instances = M.Slider.init(elems, options);
+      });
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems, {dismissible: true});
+      });
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+      });
+    </script>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.datepicker');
+        options = {format : 'dd-mmm-yyyy'}
+        var instances = M.Datepicker.init(elems, options);
+      });
+    </script>
+</body>
+</html>

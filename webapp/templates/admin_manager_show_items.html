@@ -1,0 +1,102 @@
+{% if session == 'admin' %}
+	{% extends 'layout_admin.html' %}
+{% elif session == 'manager' %}
+	{% extends 'layout_manager.html' %}
+{% endif %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12 center-align">
+			<h5 class="blue-text text-darken-4" style="font-weight: bold;">EVENT ITEMS</h5>
+		</div>
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab col s4"><a class="blue-text text-darken-4" href="#item-light">Light and Sound</a></li>
+				<li class="tab col s4"><a class="blue-text text-darken-4" href="#item-food">Food</a></li>
+				<li class="tab col s4"><a class="blue-text text-darken-4" href="#item-others">Others</a></li>
+			</ul>
+		</div>
+		<div class="col s12" id="item-light">
+			<div class="row">
+	    		{%for i in lightSoundList%}
+		    		<div class="col s12">
+		    			<div class="card horizontal">
+				      		<div class="card-image">
+				        		<img class="hide-on-small-only" src="{{lightSoundList[i]['imgUrl']}}" style="height: 11rem; width: 17rem;">
+				        		<img class="hide-on-med-and-up responsive-img" src="{{lightSoundList[i]['imgUrl']}}" style="height: 100%; width: 100%;">
+				      		</div>
+				      		<div class="card-stacked">
+				        		<div class="card-content">
+				          			<p class="grey-text text-darken-3" style="font-weight: bold; margin:0; text-transform: capitalize;">{{lightSoundList[i]['item_name']}}</p>
+				          			<p class="blue-text text-darken-4" style="font-weight: bold;"><i class="fas fa-rupee-sign"></i>{{lightSoundList[i]['item_price']}}/-</p>
+				        		</div>
+				        		<div class="card-action">
+				          			{% if session == 'admin' %}
+				        				<a href="{{url_for('adminItemDetails', itemID=i)}}">MORE DETAILS</a>
+				        			{% elif session == 'manager' %}
+				          				<a href="{{url_for('managerItemDetails', itemID=i)}}">MORE DETAILS</a>
+				        			{% endif %}
+				        		</div>
+				      		</div>
+				    	</div>
+		    		</div>
+		    	{% endfor %}
+	    	</div>
+		</div>
+		<div class="col s12" id="item-food">
+			<div class="row">
+	    		{%for i in foodList%}
+		    		<div class="col s12">
+		    			<div class="card horizontal">
+				      		<div class="card-image">
+				        		<img class="hide-on-small-only" src="{{foodList[i]['imgUrl']}}" style="height: 11rem; width: 17rem;">
+				        		<img class="hide-on-med-and-up responsive-img" src="{{foodList[i]['imgUrl']}}" style="height: 100%; width: 100%;">
+				      		</div>
+				      		<div class="card-stacked">
+				        		<div class="card-content">
+				          			<p class="grey-text text-darken-3" style="font-weight: bold; margin:0; text-transform: capitalize;">{{foodList[i]['item_name']}}</p>
+				          			<p class="blue-text text-darken-4" style="font-weight: bold;"><i class="fas fa-rupee-sign"></i>{{foodList[i]['item_price']}}/-</p>
+				        		</div>
+				        		<div class="card-action">
+				          			{% if session == 'admin' %}
+				        				<a href="{{url_for('adminItemDetails', itemID=i)}}">MORE DETAILS</a>
+				        			{% elif session == 'manager' %}
+				          				<a href="{{url_for('managerItemDetails', itemID=i)}}">MORE DETAILS</a>
+				        			{% endif %}
+				        		</div>
+				      		</div>
+				    	</div>
+		    		</div>
+		    	{% endfor %}
+	    	</div>
+		</div>
+		<div class="col s12" id="item-others">
+			<div class="row">
+	    		{%for i in othersList%}
+		    		<div class="col s12">
+		    			<div class="card horizontal">
+				      		<div class="card-image">
+				        		<img class="hide-on-small-only" src="{{othersList[i]['imgUrl']}}" style="height: 11rem; width: 17rem;">
+				        		<img class="hide-on-med-and-up responsive-img" src="{{othersList[i]['imgUrl']}}" style="height: 100%; width: 100%;">
+				      		</div>
+				      		<div class="card-stacked">
+				        		<div class="card-content">
+				          			<p class="grey-text text-darken-3" style="font-weight: bold; margin:0; text-transform: capitalize;">{{othersList[i]['item_name']}}</p>
+				          			<p class="blue-text text-darken-4" style="font-weight: bold;"><i class="fas fa-rupee-sign"></i>{{othersList[i]['item_price']}}/-</p>
+				        		</div>
+				        		<div class="card-action">
+				        			{% if session == 'admin' %}
+				        				<a href="{{url_for('adminItemDetails', itemID=i)}}">MORE DETAILS</a>
+				        			{% elif session == 'manager' %}
+				          				<a href="{{url_for('managerItemDetails', itemID=i)}}">MORE DETAILS</a>
+				        			{% endif %}
+				        		</div>
+				      		</div>
+				    	</div>
+		    		</div>
+		    	{% endfor %}
+	    	</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

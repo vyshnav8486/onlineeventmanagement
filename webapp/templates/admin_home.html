@@ -1,0 +1,138 @@
+{% extends 'layout_admin.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12 center-align">
+			<h5 style="font-weight: bold;" class="blue-text text-darken-4">EVENT LIST</h5>
+		</div>
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab col s3"><a class="blue-text text-darken-4" href="#new-request">new request</a></li>
+				<li class="tab col s3"><a class="blue-text text-darken-4" href="#on-survey">on survey</a></li>
+				<li class="tab col s3"><a class="blue-text text-darken-4" href="#for-verfication">for verification</a></li>
+				<li class="tab col s3"><a class="blue-text text-darken-4" href="#forwarded">forwarded</a></li>
+			</ul>
+		</div>
+		<div class="col s12" id="new-request">
+			<div style="overflow-x: auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th>CLIENT ID</th>
+							<th>Client Name</th>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Duration</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in new_request_list %}
+							<tr>
+								<td class="blue-grey-text text-lighten-1">{{new_request_list[i]['clientID']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{new_request_list[i]['clientDetails']['name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{new_request_list[i]['event_date']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{new_request_list[i]['event_name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{new_request_list[i]['event_duration']}}</td>
+								<td><a href="{{url_for('adminEventDetailsE', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col s12" id="on-survey">
+			<div style="overflow-x: auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th>CLIENT ID</th>
+							<th>Client Name</th>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Duration</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in on_survey_list %}
+							<tr>
+								<td class="blue-grey-text text-lighten-1">{{on_survey_list[i]['clientID']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{on_survey_list[i]['clientDetails']['name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{on_survey_list[i]['event_date']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{on_survey_list[i]['event_name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{on_survey_list[i]['event_duration']}}</td>
+								<td><a href="{{url_for('adminEventDetailsE', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col s12" id="for-verfication">
+			<div style="overflow-x: auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th>CLIENT ID</th>
+							<th>Client Name</th>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Duration</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in for_verification_list %}
+							<tr>
+								<td class="blue-grey-text text-lighten-1">{{for_verification_list[i]['clientID']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{for_verification_list[i]['clientDetails']['name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{for_verification_list[i]['event_date']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{for_verification_list[i]['event_name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{for_verification_list[i]['event_duration']}}</td>
+								<td><a href="{{url_for('adminEventDetailsVerE', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col s12" id="forwarded">
+			<div style="overflow-x: auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th>CLIENT ID</th>
+							<th>Client Name</th>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Duration</th>
+							<th>Status(Reject/Accept)</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in forwarded_list %}
+							<tr>
+								<td class="blue-grey-text text-lighten-1">{{forwarded_list[i]['clientID']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{forwarded_list[i]['clientDetails']['name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{forwarded_list[i]['event_date']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{forwarded_list[i]['event_name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{forwarded_list[i]['event_duration']}}</td>
+								{% if forwarded_list[i]['acceptFlag'] == 1 %}
+									<td class="blue-grey-text text-lighten-1">accepted</td>
+								{% elif forwarded_list[i]['acceptFlag'] == 0 %}
+									<td class="blue-grey-text text-lighten-1">rejected</td>
+								{% elif forwarded_list[i]['acceptFlag'] == 2 %}
+									<td class="blue-grey-text text-lighten-1"></td>
+								{% endif %}
+								<td><a href="{{url_for('adminEventDetails', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

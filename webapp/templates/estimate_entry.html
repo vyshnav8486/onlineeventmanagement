@@ -1,0 +1,113 @@
+{% if session == 'admin' %}
+	{% extends 'layout_admin.html' %}
+{% elif session == 'manager' %}
+	{% extends 'layout_manager.html' %}
+{% endif %}
+{% block content %}
+<div class="container z-depth-1">
+	<div class="row">
+		<div class="col s12 center-align">
+			{% if item_cat == 'lightSound' %}
+				<h5 style="font-weight: bold;" class="blue-text text-darken-4">DAY {{day}} - Light and Sound Items</h5>
+			{% else %}
+				<h5 style="font-weight: bold;" class="blue-text text-darken-4">DAY {{day}} - <span style="text-transform: capitalize;">{{item_cat}}</span> Items</h5>
+			{% endif %}
+		</div>
+		{% if session == 'admin' %}
+		<form action="{{url_for('costEstimateEdit')}}" method="post">
+		{% elif session == 'manager' %}
+		<form action="{{url_for('costEstimateCreate')}}" method="post">
+		{% endif %}
+			<div class="col s12">
+				<div class="divider"></div>
+			</div>
+			<div class="col s4 center-align" style="margin-top: 2.1rem;">
+				<span style="font-weight: bold;">Date</span>
+			</div>
+			<div class="col s4 input-field">
+				<input type="text" class="datepicker" name="date" value="{{date}}" id='event-date' class="validate" required>
+				<label for="event-date">Date</label>
+			</div>
+			{% for i in estimateEntry %}
+				<div class="row">
+					<div class="col s12">
+						<div class="divider"></div>
+					</div>
+					<div class="col s4 center-align" style="margin-top: 2.1rem;">
+						<span style="font-weight: bold; text-transform: capitalize;">{{estimateEntry[i]['item_name']}}</span>
+					</div>
+					<div class="col s4 input-field">
+						<input type="number" name="{{i}}" value="{{estimateEntry[i]['qty']}}" id='item-qty-{{i}}' class="validate" min="1">
+						<label for="item-qty-{{i}}">Quantity</label>
+					</div>
+					<div class="col s4 left-align" style="margin-top: 2rem;">
+						<span style="font-weight: bold;">{{estimateEntry[i]['item_unit']}}</span>
+						<a class="modal-trigger" href="#modal_{{i}}" style="margin-left: 1rem;"><i class="material-icons">info</i></a>
+					</div>
+					<div id="modal_{{i}}" class="modal">
+						<div class="modal-content">
+							<div class="card-panel">
+								<div class="row">
+									<div class="col s12 center-align">
+										<img src="{{estimateEntry[i]['imgUrl']}}" style="height: 10rem; width: 10rem;">
+									</div>
+									<div class="col s12">
+										<span class="blue-text text-darken-4" style="font-weight:bold;">Details</span>
+									</div>
+									<div class="col s6 m3 l3">
+										<span class='blue-grey-text text-lighten-1'>Name</span>
+									</div>
+									<div class="col s6 m3 l3">
+										<span style="font-weight:600; text-transform:capitalize;">{{estimateEntry[i]['item_name']}}</span>
+									</div>
+									<div class="col s6 m3 l3">
+										<span class='blue-grey-text text-lighten-1'>Category</span>
+									</div>
+									<div class="col s6 m3 l3">
+										{% if estimateEntry[i]['item_cat'] == 'lightSound' %}
+											<span style="font-weight:600; text-transform:capitalize;">Light and Sound</span>
+										{% else %}
+											<span style="font-weight:600; text-transform:capitalize;">{{estimateEntry[i]['item_cat']}}</span>
+										{% endif %}
+									</div>
+									<div class="col s6 m3 l3">
+										<span class='blue-grey-text text-lighten-1'>Unit of Item</span>
+									</div>
+									<div class="col s6 m3 l3">
+										<span style="font-weight:600; text-transform:capitalize;">{{estimateEntry[i]['item_unit']}}</span>
+									</div>
+									<div class="col s6 m3 l3">
+										<span class='blue-grey-text text-lighten-1'>Price</span>
+									</div>
+									<div class="col s6 m3 l3">
+										<span style="font-weight:600; text-transform:capitalize;">{{estimateEntry[i]['item_price']}}/-</span>
+									</div>
+									<div class="col s12" style="margin-top:1rem; margin-bottom: 1rem;">
+										<div class="divider"></div>
+									</div>
+									<div class="col s12">
+										<span class="blue-text text-darken-4" style="font-weight:bold;">Description</span>
+									</div>
+									<div class="col s12">
+										{{estimateEntry[i]['item_desc']}}
+									</div>
+									<div class="col s12" style="margin-top:1rem; margin-bottom: 1rem;">
+										<div class="divider"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			<div class="col s12 center-align input-field">
+				<input type="hidden" name="eventID" value="{{eventID}}">
+				<input type="hidden" name="day" value="{{day}}">
+				<input type="hidden" name="item_cat" value="{{item_cat}}">
+				<input type="hidden" name="flag" value="{{flag}}">
+				<input type="submit" name="" value="SUBMIT" class="btn blue darken-4">
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

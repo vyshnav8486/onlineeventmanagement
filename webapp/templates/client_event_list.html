@@ -1,0 +1,36 @@
+{% extends 'layout_client.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12 center-align">
+			<h5 style="font-weight: bold;" class="blue-text text-darken-4">MY EVENTS</h5>
+		</div>
+		<div class="col s12">
+			<div style="overflow-x: auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Duration</th>
+							<th>Event Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in eventList %}
+							<tr>
+								<td class="blue-grey-text text-lighten-1">{{eventList[i]['event_date']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{eventList[i]['event_name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{eventList[i]['event_duration']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{eventList[i]['eventStatus']}}</td>
+								<td><a href="{{url_for('clientEventDetails', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

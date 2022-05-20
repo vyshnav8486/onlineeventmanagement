@@ -1,0 +1,107 @@
+{% extends 'layout_manager.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab col s6"><a class="blue-text text-darken-4" href="#client-profile">Client Details</a></li>
+				<li class="tab col s6"><a class="blue-text text-darken-4" href="#event-list">Events</a></li>
+			</ul>
+		</div>
+		<div class="col s12" id="client-profile">
+			<div class="card-panel grey lighten-2">
+				<div class="row">
+					<div class= "col s12 center-align">
+						<img src="{{clientDetails['imgUrl']}}" class="circle responsive-img z-depth-1" style="height: 6rem; width: 6rem;">
+					</div>
+					<div class= "col s12 center-align">
+						<h5 class="blue-text text-darken-4" style="text-transform: capitalize; font-weight: bold;">{{clientDetails['name']}}</h5>
+						<span class="blue-grey-text text-lighten-1">{{clientDetails['email']}}</span>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Name</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; text-transform: capitalize;">{{clientDetails['name']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Mobile Number</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold;">{{clientDetails['mobileNumber']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Email</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word;">{{clientDetails['email']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">City</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word; text-transform: capitalize;">{{clientDetails['city']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+					<div class= "col s6 left-align user-sec">
+						<span style="font-weight: bold;">Address</span>
+					</div>
+					<div class= "col s6 right-align user-sec">
+						<span style="font-weight: bold; overflow-wrap: break-word;">{{clientDetails['address']}}</span>
+					</div>
+					<div class='col s12'>
+						<div class="divider grey lighten-1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col s12" id="event-list">
+			<div style="overflow-x: auto;">
+				<table class="highlight centered">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Event Name</th>
+							<th>Duration</th>
+							<th>Event Status</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for i in eventList %}
+							<tr>
+								<td class="blue-grey-text text-lighten-1">{{eventList[i]['event_date']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{eventList[i]['event_name']}}</td>
+								<td class="blue-grey-text text-lighten-1">{{eventList[i]['event_duration']}}</td>
+								<td class="blue-grey-text text-lighten-1" style="text-transform: capitalize;">{{eventList[i]['eventStatus']}}</td>
+								{% if eventList[i]['eventStatus'] == 'requested for estimate' %}
+									<td><a href="{{url_for('managerEventDetailsC', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+								{% elif eventList[i]['eventStatus'] == 'site surveying started' %}
+									<td><a href="{{url_for('managerEventDetailsC', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+								{% elif eventList[i]['eventStatus'] == 'estimate on verification' %}
+									<td><a href="{{url_for('managerEventDetails', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+								{% elif eventList[i]['eventStatus'] == 'estimate verified and forwarded to client' %}
+									<td><a href="{{url_for('managerVerEventDetails', eventID=i)}}" class="btn blue darken-4">Details</a></td>
+								{% else %}
+									<td><a href="" class="btn blue darken-4">Details</a></td>
+								{% endif %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
