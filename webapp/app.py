@@ -5,7 +5,8 @@ app = Flask(__name__)
 app.secret_key = "abc"
 
 # base_url = 'https://thinkfotechapp.herokuapp.com'
-base_url = 'http://127.0.0.1:8000'
+# base_url = 'http://127.0.0.1:8000'
+base_url = 'https://onlineeventmanagement.herokuapp.com'
 
 @app.route('/')
 def homePage():
